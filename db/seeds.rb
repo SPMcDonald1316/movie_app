@@ -5,13 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-10.times do
-  actor = Actor.new(first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, FFaker::Movie.title)
-  actor.save
+require 'csv'
+
+CSV.read(Rails.root.join('lib', 'seeds', 'Snacks.csv'), headers:true, encoding: 'ISO-8859-1').each do |row|
+  t = Snack.create(row.to_hash)
 end
-
-movie = Movie.new(title: "Ghost Busters", year: 1984, plot: "Busting ghosts")
-movie.save
-
-movie = Movie.new(title: "Ghost Busters 2", year: 1989, plot: "Busting more ghosts")
-movie.save
